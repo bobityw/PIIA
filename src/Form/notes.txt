@@ -1,0 +1,1 @@
+ovale: distance entre le point (x et y) et le centre de l'ovale (this.getxStart(), this.getyStart()) en utilisant la formule de distance entre deux points dans un plan cartésien. Si cette distance est inférieure ou égale au rayon de l'ovale, alors le point (x,y) est contenu dans l'ovale

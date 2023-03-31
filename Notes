@@ -1,0 +1,103 @@
+Notes: 
+--module-path /opt/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml
+
+2) Groupement des fonctionnalités 
+
+Fichier : 
+- Créer un nouveau fichier ex-nihilo
+- Ouvrir, fermer et enregistrer un fichier de texte
+- Imprimer le fichier
+- Quitter l’application
+
+Edition : (modification) 
+- Annuler 
+- Rétablir
+- Modifier la police de caractères, leur taille et style (italique, gras, souligné)
+- Copier/Couper/Coller du texte
+- Mettre en majuscule ou en minuscule (not sure) 
+
+Insertion : 
+- Insérer une image ou dessin
+- Insérer un tableau
+- Insérer une table des matières
+- Insertion de caractères spéciaux
+- Insérer des numéros de page
+- Insérer une note de bas de page
+
+Navigation: Formater
+- Chercher un segment de texte
+- Remplacer un segment de texte
+- Compter le nombre de mots ou de caractères dans le texte
+- Vérifier l’orthographe
+- Zoomer
+
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+    
+    private double startX, startY;
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        
+        // Créer un groupe contenant les formes
+        Group root = new Group();
+        
+        // Créer un cercle rouge
+        Circle circle = new Circle(100, 100, 30);
+        circle.setFill(Color.RED);
+        
+        // Ajouter un gestionnaire d'événements de clic pour le cercle
+        circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                double time = calculateTime(startX, startY, circle.getCenterX(), circle.getCenterY());
+                System.out.println("Temps de pointage : " + time + " secondes");
+            }
+        });
+        
+        // Créer un rectangle bleu
+        Rectangle rectangle = new Rectangle(200, 200, 50, 50);
+        rectangle.setFill(Color.BLUE);
+        
+        // Ajouter un gestionnaire d'événements de clic pour le rectangle
+        rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                double time = calculateTime(startX, startY, rectangle.getX(), rectangle.getY());
+                System.out.println("Temps de pointage : " + time + " secondes");
+            }
+        });
+        
+        // Ajouter les formes au groupe
+        root.getChildren().addAll(circle, rectangle);
+        
+        // Créer une scène à partir du groupe
+        Scene scene = new Scene(root, 400, 400);
+        
+        // Ajouter un gestionnaire d'événements de clic pour la scène
+        scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                startX = event.getX();
+                startY = event.getY();
+            }
+        });
+        
+        // Configurer la scène et afficher la fenêtre
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    
+    // Fonction pour calculer le temps de pointage
+    private double calculateTime(double startX, double startY, double endX, double endY) {
+        double distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+        double speed = 200; // pixels

@@ -1,0 +1,5 @@
+Dans la classe Paint1.java quelle est la méthode utilisée pour associée une action à l’aire
+de dessin ? Repérez la « lambda expression ». Quelle méthode est utilisée pour tracer des
+ronds et sur quel objet est-elle appelée ? Comment détermine-t-elle l’emplacement où doit
+être tracé le rond ?
+setOnMouseClicked
